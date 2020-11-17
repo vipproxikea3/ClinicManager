@@ -138,6 +138,8 @@
     <Compile Include="Models\Constant.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataTransferObject\DataProvider.cs" />
+    <Compile Include="Models\DataTransferObject\PatientDTO.cs" />
     <Compile Include="Models\EntityDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
