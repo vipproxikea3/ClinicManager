@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClinicManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="IdentityCardNumber" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Constant">
+          <Key>
+            <PropertyRef Name="IdConstant" />
+          </Key>
+          <Property Name="IdConstant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Properties" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Value" Type="float" />
+        </EntityType>
+        <EntityType Name="HealthRecord">
+          <Key>
+            <PropertyRef Name="IdHealthRecord" />
+          </Key>
+          <Property Name="IdHealthRecord" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreateAt" Type="datetime" />
+          <Property Name="CreateByUser" Type="int" Nullable="false" />
+          <Property Name="ExaminationFee" Type="float" Nullable="false" />
+          <Property Name="IsReExamination" Type="bit" />
+          <Property Name="UpdateByUser" Type="int" Nullable="false" />
+          <Property Name="IdPatient" Type="int" Nullable="false" />
+          <Property Name="Symptom" Type="nvarchar" MaxLength="200" />
+          <Property Name="Diagnosis" Type="nvarchar" MaxLength="200" />
+          <Property Name="IndexOfDay" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="IdPatient" />
+          </Key>
+          <Property Name="IdPatient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="IdentityCardNumber" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Precription">
+          <Key>
+            <PropertyRef Name="IdPrecription" />
+          </Key>
+          <Property Name="IdPrecription" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdHealthRecord" Type="int" Nullable="false" />
+          <Property Name="MedicineName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="200" />
+          <Property Name="Count" Type="int" />
+          <Property Name="UserManual" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="ReExamination">
+          <Key>
+            <PropertyRef Name="IdHealthRecord" />
+          </Key>
+          <Property Name="IdHealthRecord" Type="int" Nullable="false" />
+          <Property Name="ReExaminationAt" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="CreateByUser_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="HealthRecord">
+              <PropertyRef Name="CreateByUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdHealthRecord_Precription_FK">
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="1" />
+          <End Role="Precription" Type="Self.Precription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HealthRecord">
+              <PropertyRef Name="IdHealthRecord" />
+            </Principal>
+            <Dependent Role="Precription">
+              <PropertyRef Name="IdHealthRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdHealthRecord_ReExamination_FK">
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="1" />
+          <End Role="ReExamination" Type="Self.ReExamination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HealthRecord">
+              <PropertyRef Name="IdHealthRecord" />
+            </Principal>
+            <Dependent Role="ReExamination">
+              <PropertyRef Name="IdHealthRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdPatient_FK">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="IdPatient" />
+            </Principal>
+            <Dependent Role="HealthRecord">
+              <PropertyRef Name="IdPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UpdateByUser_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="HealthRecord">
+              <PropertyRef Name="UpdateByUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinicManagerModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Constant" EntityType="Self.Constant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HealthRecord" EntityType="Self.HealthRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Precription" EntityType="Self.Precription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReExamination" EntityType="Self.ReExamination" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="CreateByUser_FK" Association="Self.CreateByUser_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="HealthRecord" EntitySet="HealthRecord" />
+          </AssociationSet>
+          <AssociationSet Name="IdHealthRecord_Precription_FK" Association="Self.IdHealthRecord_Precription_FK">
+            <End Role="HealthRecord" EntitySet="HealthRecord" />
+            <End Role="Precription" EntitySet="Precription" />
+          </AssociationSet>
+          <AssociationSet Name="IdHealthRecord_ReExamination_FK" Association="Self.IdHealthRecord_ReExamination_FK">
+            <End Role="HealthRecord" EntitySet="HealthRecord" />
+            <End Role="ReExamination" EntitySet="ReExamination" />
+          </AssociationSet>
+          <AssociationSet Name="IdPatient_FK" Association="Self.IdPatient_FK">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="HealthRecord" EntitySet="HealthRecord" />
+          </AssociationSet>
+          <AssociationSet Name="UpdateByUser_FK" Association="Self.UpdateByUser_FK">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="HealthRecord" EntitySet="HealthRecord" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClinicManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="IdentityCardNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HealthRecords" Relationship="Self.CreateByUser_FK" FromRole="Account" ToRole="HealthRecord" />
+          <NavigationProperty Name="HealthRecords1" Relationship="Self.UpdateByUser_FK" FromRole="Account" ToRole="HealthRecord" />
+        </EntityType>
+        <EntityType Name="Constant">
+          <Key>
+            <PropertyRef Name="IdConstant" />
+          </Key>
+          <Property Name="IdConstant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Properties" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="Double" />
+        </EntityType>
+        <EntityType Name="HealthRecord">
+          <Key>
+            <PropertyRef Name="IdHealthRecord" />
+          </Key>
+          <Property Name="IdHealthRecord" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateAt" Type="DateTime" Precision="3" />
+          <Property Name="CreateByUser" Type="Int32" Nullable="false" />
+          <Property Name="ExaminationFee" Type="Double" Nullable="false" />
+          <Property Name="IsReExamination" Type="Boolean" />
+          <Property Name="UpdateByUser" Type="Int32" Nullable="false" />
+          <Property Name="IdPatient" Type="Int32" Nullable="false" />
+          <Property Name="Symptom" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Diagnosis" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IndexOfDay" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Account" Relationship="Self.CreateByUser_FK" FromRole="HealthRecord" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.UpdateByUser_FK" FromRole="HealthRecord" ToRole="Account" />
+          <NavigationProperty Name="Precriptions" Relationship="Self.IdHealthRecord_Precription_FK" FromRole="HealthRecord" ToRole="Precription" />
+          <NavigationProperty Name="ReExamination" Relationship="Self.IdHealthRecord_ReExamination_FK" FromRole="HealthRecord" ToRole="ReExamination" />
+          <NavigationProperty Name="Patient" Relationship="Self.IdPatient_FK" FromRole="HealthRecord" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="IdPatient" />
+          </Key>
+          <Property Name="IdPatient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="IdentityCardNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HealthRecords" Relationship="Self.IdPatient_FK" FromRole="Patient" ToRole="HealthRecord" />
+        </EntityType>
+        <EntityType Name="Precription">
+          <Key>
+            <PropertyRef Name="IdPrecription" />
+          </Key>
+          <Property Name="IdPrecription" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdHealthRecord" Type="Int32" Nullable="false" />
+          <Property Name="MedicineName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="UserManual" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HealthRecord" Relationship="Self.IdHealthRecord_Precription_FK" FromRole="Precription" ToRole="HealthRecord" />
+        </EntityType>
+        <EntityType Name="ReExamination">
+          <Key>
+            <PropertyRef Name="IdHealthRecord" />
+          </Key>
+          <Property Name="IdHealthRecord" Type="Int32" Nullable="false" />
+          <Property Name="ReExaminationAt" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="HealthRecord" Relationship="Self.IdHealthRecord_ReExamination_FK" FromRole="ReExamination" ToRole="HealthRecord" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="CreateByUser_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="HealthRecord">
+              <PropertyRef Name="CreateByUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UpdateByUser_FK">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="HealthRecord">
+              <PropertyRef Name="UpdateByUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdHealthRecord_Precription_FK">
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="1" />
+          <End Role="Precription" Type="Self.Precription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HealthRecord">
+              <PropertyRef Name="IdHealthRecord" />
+            </Principal>
+            <Dependent Role="Precription">
+              <PropertyRef Name="IdHealthRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdHealthRecord_ReExamination_FK">
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="1" />
+          <End Role="ReExamination" Type="Self.ReExamination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HealthRecord">
+              <PropertyRef Name="IdHealthRecord" />
+            </Principal>
+            <Dependent Role="ReExamination">
+              <PropertyRef Name="IdHealthRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdPatient_FK">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="HealthRecord" Type="Self.HealthRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="IdPatient" />
+            </Principal>
+            <Dependent Role="HealthRecord">
+              <PropertyRef Name="IdPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinicManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Constants" EntityType="Self.Constant" />
+          <EntitySet Name="HealthRecords" EntityType="Self.HealthRecord" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="Precriptions" EntityType="Self.Precription" />
+          <EntitySet Name="ReExaminations" EntityType="Self.ReExamination" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="CreateByUser_FK" Association="Self.CreateByUser_FK">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="HealthRecord" EntitySet="HealthRecords" />
+          </AssociationSet>
+          <AssociationSet Name="UpdateByUser_FK" Association="Self.UpdateByUser_FK">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="HealthRecord" EntitySet="HealthRecords" />
+          </AssociationSet>
+          <AssociationSet Name="IdHealthRecord_Precription_FK" Association="Self.IdHealthRecord_Precription_FK">
+            <End Role="HealthRecord" EntitySet="HealthRecords" />
+            <End Role="Precription" EntitySet="Precriptions" />
+          </AssociationSet>
+          <AssociationSet Name="IdHealthRecord_ReExamination_FK" Association="Self.IdHealthRecord_ReExamination_FK">
+            <End Role="HealthRecord" EntitySet="HealthRecords" />
+            <End Role="ReExamination" EntitySet="ReExaminations" />
+          </AssociationSet>
+          <AssociationSet Name="IdPatient_FK" Association="Self.IdPatient_FK">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="HealthRecord" EntitySet="HealthRecords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClinicManagerModelStoreContainer" CdmEntityContainer="ClinicManagerEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="ClinicManagerModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IdentityCardNumber" ColumnName="IdentityCardNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constants">
+            <EntityTypeMapping TypeName="ClinicManagerModel.Constant">
+              <MappingFragment StoreEntitySet="Constant">
+                <ScalarProperty Name="IdConstant" ColumnName="IdConstant" />
+                <ScalarProperty Name="Properties" ColumnName="Properties" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HealthRecords">
+            <EntityTypeMapping TypeName="ClinicManagerModel.HealthRecord">
+              <MappingFragment StoreEntitySet="HealthRecord">
+                <ScalarProperty Name="IdHealthRecord" ColumnName="IdHealthRecord" />
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
+                <ScalarProperty Name="CreateByUser" ColumnName="CreateByUser" />
+                <ScalarProperty Name="ExaminationFee" ColumnName="ExaminationFee" />
+                <ScalarProperty Name="IsReExamination" ColumnName="IsReExamination" />
+                <ScalarProperty Name="UpdateByUser" ColumnName="UpdateByUser" />
+                <ScalarProperty Name="IdPatient" ColumnName="IdPatient" />
+                <ScalarProperty Name="Symptom" ColumnName="Symptom" />
+                <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
+                <ScalarProperty Name="IndexOfDay" ColumnName="IndexOfDay" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="ClinicManagerModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="IdPatient" ColumnName="IdPatient" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IdentityCardNumber" ColumnName="IdentityCardNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Precriptions">
+            <EntityTypeMapping TypeName="ClinicManagerModel.Precription">
+              <MappingFragment StoreEntitySet="Precription">
+                <ScalarProperty Name="IdPrecription" ColumnName="IdPrecription" />
+                <ScalarProperty Name="IdHealthRecord" ColumnName="IdHealthRecord" />
+                <ScalarProperty Name="MedicineName" ColumnName="MedicineName" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="UserManual" ColumnName="UserManual" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReExaminations">
+            <EntityTypeMapping TypeName="ClinicManagerModel.ReExamination">
+              <MappingFragment StoreEntitySet="ReExamination">
+                <ScalarProperty Name="IdHealthRecord" ColumnName="IdHealthRecord" />
+                <ScalarProperty Name="ReExaminationAt" ColumnName="ReExaminationAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ClinicManagerModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
