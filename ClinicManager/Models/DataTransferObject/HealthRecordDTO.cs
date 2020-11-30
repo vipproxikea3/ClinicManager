@@ -33,6 +33,31 @@ namespace ClinicManager.Models.DataTransferObject
             return DataProvider.Instant.DB.HealthRecords.Where(x => x.IdHealthRecord == id).SingleOrDefault();
         }
 
+        public List<HealthRecord> getHealthRecordsByIdPatient(int id)
+        {
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.IdPatient == id).ToList();
+        }
+
+        public int CountHealthRecordsByIdPatient(int id)
+        {
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.IdPatient == id).ToList().Count;
+        }
+
+        public double GetTotalFeeByIdPatient(int id)
+        {
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.IdPatient == id).ToList().Sum(x => x.ExaminationFee);
+        }
+
+        public List<HealthRecord> GetQueuesHealthRecords()
+        {
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == false).OrderBy(x => x.IndexOfDay).Take(10).ToList();
+        }
+
+        public List<HealthRecord> GetMissCallsHealthRecords()
+        {
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == true).OrderBy(x => x.IndexOfDay).Take(10).ToList();
+        }
+
         #endregion
     }
 }

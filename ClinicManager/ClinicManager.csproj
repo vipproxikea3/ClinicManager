@@ -237,6 +237,7 @@
     <Content Include="Views\community\health_records.cshtml" />
     <Content Include="Views\community\detail_health_record.cshtml" />
     <Content Include="Views\page_not_found\Index.cshtml" />
+    <Content Include="Views\community\detail_patient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

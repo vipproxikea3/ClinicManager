@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Trang chủ</title>
+    <title>Chi tiết bệnh nhân</title>
 
     <!-- Custom fonts for this template -->
     <link href="~/Template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
     <script src="~/Scripts/jquery-3.5.1.js"></script>
 
     <!-- Process script -->
-    <script src="~/Template/jsScript/home.js"></script>
+    <script src="~/Template/jsScript/detail_patient.js"></script>
 
     <style>
         #Sidebar {
@@ -69,7 +69,7 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Home -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/home">
                         <i class="fas fa-fw fa-home"></i>
                         <span>Trang chủ</span></a>
@@ -184,7 +184,8 @@
                 <div id="Topbar">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                        <span class="ml-2 text-lg text-gray-600">home</span>
+                        <span class="ml-2 text-lg text-gray-600">community <i class="fas fa-caret-right"></i>
+                            detail_patient</span>
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -237,19 +238,102 @@
 
                 <!-- Begin Page Content -->
                 <div style="min-height: 600px;" class="container-fluid">
-                    <div class="row">
-                        <div class="col container-fluid">
-                            <div class="row" class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 ml-3 mb-3 text-success">ĐANG CHỜ</h1>
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Thông tin bệnh nhân</h1>
+                    </div>
+                    <div class="card shadow mb-4 container-fluid">
+                        <div class="row">
+                            <p id="nameTitle" class="m-3 mt-5 font-weight-bold text-uppercase text-lg text-gray-800"></p>
+                        </div>
+                        <div class="row">
+                            <ul class="m-3 mt-5 nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active font-weight-bold" id="about-tab" data-toggle="tab" href="#about" role="tab"
+                                        aria-controls="about" aria-selected="true">Thông tin chi tiết</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link font-weight-bold" id="history-tab" data-toggle="tab" href="#history" role="tab"
+                                        aria-controls="history" aria-selected="false">Lịch sử khám bệnh</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="m-3 row tab-content" id="myTabContent">
+                            <div class="container tab-pane fade show active" id="about" role="tabpanel"
+                                aria-labelledby="about-tab">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold text-gray-800">Mã bệnh nhân</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p id="idPatient"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold text-gray-800">Họ và tên</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p id="name"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold text-gray-800">Chứng minh thư</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p id="identityCardNumber"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold text-gray-800">Ngày sinh</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p id="dateOfBirth"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold text-gray-800">Giới tính</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p id="gender"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold text-gray-800">Số lần khám</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p id="countHealthRecords"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold text-gray-800">Tổng chi phí</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p id="totalFee"></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card shadow mb-4">
-                                <div class="card-body">
+                            <div class="container tab-pane fade" id="history" role="tabpanel"
+                                aria-labelledby="history-tab">
+                                <div class="row">
                                     <div class="table-responsive">
-                                        <table id="queueTable" class="table table-bordered" width="100%" cellspacing="0">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>STT</th>
-                                                    <th>Tên bệnh nhân</th>
+                                                    <th>Mã số</th>
+                                                    <th>Ngày khám</th>
+                                                    <th>Thu ngân</th>
+                                                    <th>Bác sĩ</th>
+                                                    <th>Bệnh nhân</th>
+                                                    <th>Chẩn đoán</th>
+                                                    <th>Phí khám</th>
+                                                    <th>Trạng thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -259,28 +343,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col container-fluid">
-                            <div class="row" class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 ml-3 mb-3 text-danger">BỎ LỠ</h1>
-                            </div>
-                            <div class="card shadow mb-4">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="missCallTable" class="table table-bordered" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>STT</th>
-                                                    <th>Tên bệnh nhân</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 

@@ -44,7 +44,6 @@ function getPrecription(id) {
         },
         complete: function() {
             renderPrecription();
-            console.log(precription);
         }
     });
 }
