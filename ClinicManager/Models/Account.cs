@@ -14,13 +14,6 @@ namespace ClinicManager.Models
     
     public partial class Account
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Account()
-        {
-            this.HealthRecords = new HashSet<HealthRecord>();
-            this.HealthRecords1 = new HashSet<HealthRecord>();
-        }
-    
         public int IdUser { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -29,12 +22,8 @@ namespace ClinicManager.Models
         public bool Gender { get; set; }
         public string IdentityCardNumber { get; set; }
         public string Address { get; set; }
+        public string Phone { get; set; }
         public Nullable<bool> isActive { get; set; }
         public int Role { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HealthRecord> HealthRecords { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HealthRecord> HealthRecords1 { get; set; }
     }
 }

@@ -7,13 +7,25 @@ namespace ClinicManager.Models.DataTransferObject
 {
     public class PatientDTO
     {
-        #region POST
-        public void CreatePatient(string Name, string DayOfBirth, bool Gender, string IdentityCardNumber)
+        private static PatientDTO _instant;
+        public static PatientDTO Instant
         {
-            string[] eOfD = DayOfBirth.Split('-');
-            DateTime dOfB = new DateTime(Int32.Parse(eOfD[0]), Int32.Parse(eOfD[1]), Int32.Parse(eOfD[2]));
+            get
+            {
+                if (_instant == null)
+                    _instant = new PatientDTO();
+                return _instant;
+            }
+            set
+            {
+                _instant = value;
+            }
+        }
 
-            DataProvider.Instant.DB.Patients.Add(new Patient() { Name = Name, DateOfBirth = dOfB, Gender = Gender, IdentityCardNumber = IdentityCardNumber });
+        #region POST
+        public void CreatePatient(Patient patientObj)
+        {
+            DataProvider.Instant.DB.Patients.Add(new Patient() { Name = patientObj.Name, DateOfBirth = patientObj.DateOfBirth, Gender = patientObj.Gender, IdentityCardNumber = patientObj.IdentityCardNumber });
             DataProvider.Instant.DB.SaveChanges();
         }
         #endregion
@@ -21,12 +33,17 @@ namespace ClinicManager.Models.DataTransferObject
         #region GET
         public List<Patient> GetPatients()
         {
-            return DataProvider.Instant.DB.Patients.ToList();
+            return DataProvider.Instant.DB.Patients.OrderByDescending(x => x.CreateAt).ToList();
         }
 
         public Patient GetPatientById(int id)
         {
             return DataProvider.Instant.DB.Patients.Where(x => x.IdPatient == id).FirstOrDefault();
+        }
+
+        public string GetPatientNameById(int id)
+        {
+            return DataProvider.Instant.DB.Patients.Where(x => x.IdPatient == id).First().Name;
         }
 
         public Patient GetPatientByIdentityCardNumber(string number)
@@ -36,16 +53,12 @@ namespace ClinicManager.Models.DataTransferObject
         #endregion
 
         #region PUT
-        public void UpdatePatient(int IdPatient, string Name, string DayOfBirth, bool Gender)
+        public void UpdatePatient(Patient patientObj)
         {
-            Patient patient = DataProvider.Instant.DB.Patients.Where(x => x.IdPatient == IdPatient).FirstOrDefault();
-            patient.Name = Name;
-
-            string[] eOfD = DayOfBirth.Split('-');
-            DateTime dOfB = new DateTime(Int32.Parse(eOfD[0]), Int32.Parse(eOfD[1]), Int32.Parse(eOfD[2]));
-            patient.DateOfBirth = dOfB;
-
-            patient.Gender = Gender;
+            Patient patient = DataProvider.Instant.DB.Patients.Where(x => x.IdPatient == patientObj.IdPatient).FirstOrDefault();
+            patient.Name = patientObj.Name;
+            patient.DateOfBirth = patientObj.DateOfBirth;
+            patient.Gender = patientObj.Gender;
             DataProvider.Instant.DB.SaveChanges();
         }
         #endregion

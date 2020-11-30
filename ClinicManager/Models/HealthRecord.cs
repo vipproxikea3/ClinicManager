@@ -14,29 +14,17 @@ namespace ClinicManager.Models
     
     public partial class HealthRecord
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HealthRecord()
-        {
-            this.Precriptions = new HashSet<Precription>();
-        }
-    
         public int IdHealthRecord { get; set; }
         public Nullable<System.DateTime> CreateAt { get; set; }
         public int CreateByUser { get; set; }
         public double ExaminationFee { get; set; }
         public Nullable<bool> IsReExamination { get; set; }
-        public int UpdateByUser { get; set; }
+        public Nullable<int> UpdateByUser { get; set; }
         public int IdPatient { get; set; }
         public string Symptom { get; set; }
         public string Diagnosis { get; set; }
         public Nullable<int> IndexOfDay { get; set; }
+        public Nullable<bool> missCall { get; set; }
         public Nullable<bool> Status { get; set; }
-    
-        public virtual Account Account { get; set; }
-        public virtual Account Account1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Precription> Precriptions { get; set; }
-        public virtual ReExamination ReExamination { get; set; }
-        public virtual Patient Patient { get; set; }
     }
 }

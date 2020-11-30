@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ClinicManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ClinicManagerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="ClinicManagerModel.Account" />
+    <EntitySet Name="Constants" EntityType="ClinicManagerModel.Constant" />
+    <EntitySet Name="HealthRecords" EntityType="ClinicManagerModel.HealthRecord" />
+    <EntitySet Name="Patients" EntityType="ClinicManagerModel.Patient" />
+    <EntitySet Name="Precriptions" EntityType="ClinicManagerModel.Precription" />
+    <EntitySet Name="ReExaminations" EntityType="ClinicManagerModel.ReExamination" />
+    <EntitySet Name="sysdiagrams" EntityType="ClinicManagerModel.sysdiagram" />
+  </EntityContainer>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="IdentityCardNumber" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Constant">
+    <Key>
+      <PropertyRef Name="IdConstant" />
+    </Key>
+    <Property Name="IdConstant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Properties" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="Double" />
+  </EntityType>
+  <EntityType Name="HealthRecord">
+    <Key>
+      <PropertyRef Name="IdHealthRecord" />
+    </Key>
+    <Property Name="IdHealthRecord" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateAt" Type="DateTime" Precision="3" />
+    <Property Name="CreateByUser" Type="Int32" Nullable="false" />
+    <Property Name="ExaminationFee" Type="Double" Nullable="false" />
+    <Property Name="IsReExamination" Type="Boolean" />
+    <Property Name="UpdateByUser" Type="Int32" />
+    <Property Name="IdPatient" Type="Int32" Nullable="false" />
+    <Property Name="Symptom" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Diagnosis" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IndexOfDay" Type="Int32" />
+    <Property Name="missCall" Type="Boolean" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="IdPatient" />
+    </Key>
+    <Property Name="IdPatient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="IdentityCardNumber" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreateAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Precription">
+    <Key>
+      <PropertyRef Name="IdPrecription" />
+    </Key>
+    <Property Name="IdPrecription" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdHealthRecord" Type="Int32" Nullable="false" />
+    <Property Name="MedicineName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Unit" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Count" Type="Int32" />
+    <Property Name="UserManual" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ReExamination">
+    <Key>
+      <PropertyRef Name="IdHealthRecord" />
+    </Key>
+    <Property Name="IdHealthRecord" Type="Int32" Nullable="false" />
+    <Property Name="ReExaminationAt" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+</Schema>

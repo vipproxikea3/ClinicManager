@@ -5,18 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4908916df66c4310bb0c81647078dd7c" Name="Diagram1">
-        <EntityTypeShape EntityType="ClinicManagerModel.Account" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClinicManagerModel.Constant" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClinicManagerModel.HealthRecord" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClinicManagerModel.Patient" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClinicManagerModel.Precription" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClinicManagerModel.ReExamination" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClinicManagerModel.sysdiagram" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
-        <AssociationConnector Association="ClinicManagerModel.CreateByUser_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ClinicManagerModel.UpdateByUser_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ClinicManagerModel.IdHealthRecord_Precription_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ClinicManagerModel.IdHealthRecord_ReExamination_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ClinicManagerModel.IdPatient_FK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ClinicManagerModel.Account" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ClinicManagerModel.Constant" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ClinicManagerModel.HealthRecord" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ClinicManagerModel.Patient" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ClinicManagerModel.Precription" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ClinicManagerModel.ReExamination" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ClinicManagerModel.sysdiagram" Width="1.5" PointX="6.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

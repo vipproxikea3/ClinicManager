@@ -14,19 +14,11 @@ namespace ClinicManager.Models
     
     public partial class Patient
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Patient()
-        {
-            this.HealthRecords = new HashSet<HealthRecord>();
-        }
-    
         public int IdPatient { get; set; }
         public string Name { get; set; }
         public System.DateTime DateOfBirth { get; set; }
         public bool Gender { get; set; }
         public string IdentityCardNumber { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HealthRecord> HealthRecords { get; set; }
+        public Nullable<System.DateTime> CreateAt { get; set; }
     }
 }

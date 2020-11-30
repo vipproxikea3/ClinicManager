@@ -20,7 +20,5 @@ namespace ClinicManager.Models
         public string Unit { get; set; }
         public Nullable<int> Count { get; set; }
         public string UserManual { get; set; }
-    
-        public virtual HealthRecord HealthRecord { get; set; }
     }
 }
