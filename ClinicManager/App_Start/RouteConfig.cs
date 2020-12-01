@@ -24,6 +24,12 @@ namespace ClinicManager
                 url: "community/{action}/{id}",
                 defaults: new { controller = "community", action = "patients", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "manager",
+                url: "manager/{action}/{id}",
+                defaults: new { controller = "manager", action = "profile", id = UrlParameter.Optional }
+            );
         }
     }
 }

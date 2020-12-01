@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tra cứu bệnh nhân</title>
+    <title>Cá nhân</title>
 
     <!-- Custom fonts for this template -->
     <link href="~/Template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,9 +24,6 @@
     <!-- Custom styles for this template -->
     <link href="~/Template/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this page -->
-    <link href="~/Template/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
     <!-- jQuery -->
     <script src="~/Scripts/jquery-3.5.1.js"></script>
 
@@ -34,7 +31,8 @@
     <script src="~/Template/jsScript/checkLogin.js"></script>
 
     <!-- Process script -->
-    <script src="~/Template/jsScript/patients.js"></script>
+    <script src="~/Template/jsScript/profile.js"></script>
+    
 
     <style>
         #Sidebar {
@@ -53,7 +51,6 @@
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -88,7 +85,7 @@
                 </div>
 
                 <!-- Nav Item - Patients -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/community/patients">
                         <i class="fas fa-fw fa-user-injured"></i>
                         <span>Bệnh nhân</span></a>
@@ -177,6 +174,7 @@
             </ul>
         </div>
         <!-- End of Sidebar -->
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -187,7 +185,8 @@
                 <div id="Topbar">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                        <span class="ml-2 text-lg text-gray-600">community <i class="fas fa-caret-right"></i> patients</span>
+                        <span class="ml-2 text-lg text-gray-600">manager <i class="fas fa-caret-right"></i>
+                            profile</span>
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -197,7 +196,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span id="profileName" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                                    <img id="profileAvatar" class="img-profile rounded-circle">
+                                    <img id="profileAvatar" class="img-profile rounded-circle profileAvatar">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -223,10 +222,8 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Sẵn sàng đăng xuất?</h5>
                                 </div>
-                                <div class="modal-body">
-                                    Chọn "Đăng xuất" bên dưới nếu bạn đã sẵn sàng kết thúc phiên
-                                    hiện tại của mình.
-                                </div>
+                                <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã sẵn sàng kết thúc phiên
+                                    hiện tại của mình.</div>
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
                                     <a class="btn btn-primary" href="/login">Đăng xuất</a>
@@ -236,102 +233,143 @@
                     </div>
                 </div>
                 <!-- End of Topbar -->
+
                 <!-- Begin Page Content -->
                 <div style="min-height: 600px;" class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Tra cứu bệnh nhân</h1>
-                    </div>
-
                     <div class="row">
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Tất cả
-                                            </div>
-                                            <div id="totalPatients" class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        </div>
-                                    </div>
+                        <div class="col-md-8 card shadow p-5">
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Họ và tên</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="name"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Ngày sinh</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="dateOfBirth"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Giới tính</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="gender"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Chứng minh thư</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="identityCardNumber"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Địa chỉ</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="address"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Số điện thoại</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="phone"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Chức vụ</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="role"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Trạng thái</label>
+                                </div>
+                                <div id="status" class="col-md-5">
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center mt-5">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900">Tên đăng nhập</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <p id="username"></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-5">
+                                    <label class="font-weight-bold text-gray-900"></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <button type="button" class="btn btn-danger p-1" data-toggle="modal"
+                                        data-target="#editPasswordModal">Đổi mật khẩu</button>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div id="thisYear" class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            </div>
-                                            <div id="yearPatients" class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div id="thisMonth" class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div id="monthPatients" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div id="thisDate" class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            </div>
-                                            <div id="datePatients" class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-md-4 p-5 d-flex flex-column justify-content-center">
+                            <img id="avatar" class="rounded-circle shadow img-thumbnail">
                         </div>
                     </div>
+                </div>
 
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="patientsTable" class="table table-bordered" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Họ tên</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Giới tính</th>
-                                            <th>Số chứng minh</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                <!-- Modal -->
+                <div class="modal fade" id="editPasswordModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Đổi mật khẩu</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row my-3">
+                                        <div class="col-md-5 d-flex flex-column justify-content-center">
+                                            <label class="font-weight-bold text-gray-900 mb-0">Mật khẩu ban đầu</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input id="passInput" type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col-md-5 d-flex flex-column justify-content-center">
+                                            <label class="font-weight-bold text-gray-900 mb-0">Mật khẩu mới</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input id="newPass" type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col-md-5 d-flex flex-column justify-content-center">
+                                            <label class="font-weight-bold text-gray-900 mb-0">Nhập lại</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input id="reEnterNewPass" type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button id="saveButton" type="button" class="btn btn-primary" data-dismiss="modal">Lưu</button>
                             </div>
                         </div>
-                    </div>
-
+                    </div>                                        
                 </div>
                 <!-- /.container-fluid -->
 
-            </div>
-            <!-- End of Main Content -->
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -347,6 +385,7 @@
 
     </div>
     <!-- End of Page Wrapper -->
+
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -362,12 +401,5 @@
 
 <!-- Custom scripts for all pages-->
 <script src="~/Template/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="~/Template/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="~/Template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="~/Template/js/demo/datatables-demo.js"></script>
 
 </html>

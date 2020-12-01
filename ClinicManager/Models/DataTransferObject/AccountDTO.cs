@@ -31,6 +31,24 @@ namespace ClinicManager.Models.DataTransferObject
             return acc.Name;
         }
 
+        public Account GetAccountById(int id)
+        {
+            return DataProvider.Instant.DB.Accounts.Where(x => x.IdUser == id).SingleOrDefault();
+        }
+
+        public Account Login(string username, string password)
+        {
+            return DataProvider.Instant.DB.Accounts.Where(x => x.Username == username && x.Password == password).SingleOrDefault();
+        }
+
+        public string SetPass(Account data)
+        {
+            Account acc = DataProvider.Instant.DB.Accounts.Where(x => x.Username == data.Username).SingleOrDefault();
+            acc.Password = data.Password;
+            DataProvider.Instant.DB.SaveChanges();
+            return "success";
+        }
+
         #endregion
     }
 }

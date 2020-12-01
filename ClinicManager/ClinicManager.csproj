@@ -130,6 +130,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\communityController.cs" />
     <Compile Include="Controllers\homeController.cs" />
+    <Compile Include="Controllers\loginController.cs" />
+    <Compile Include="Controllers\managerController.cs" />
     <Compile Include="Controllers\page_not_foundController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -238,6 +240,8 @@
     <Content Include="Views\community\detail_health_record.cshtml" />
     <Content Include="Views\page_not_found\Index.cshtml" />
     <Content Include="Views\community\detail_patient.cshtml" />
+    <Content Include="Views\login\Index.cshtml" />
+    <Content Include="Views\manager\profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
