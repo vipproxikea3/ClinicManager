@@ -24,6 +24,10 @@ namespace ClinicManager.Models.DataTransferObject
 
         #region GET
 
+        public List<Account> GetAccounts() {
+            return DataProvider.Instant.DB.Accounts.ToList();
+        }
+
         public string GetAccountNameById(int? id)
         {
             if (id == null) return null;
@@ -34,6 +38,34 @@ namespace ClinicManager.Models.DataTransferObject
         public Account GetAccountById(int id)
         {
             return DataProvider.Instant.DB.Accounts.Where(x => x.IdUser == id).SingleOrDefault();
+        }
+
+        public string SetStatus(int id)
+        {
+            Account acc = DataProvider.Instant.DB.Accounts.Where(x => x.IdUser == id).SingleOrDefault();
+            if (acc.isActive == true)
+            {
+                acc.isActive = false;
+            }
+            else
+            {
+                acc.isActive = true;
+            }
+            DataProvider.Instant.DB.SaveChanges();
+            return "success";
+        }
+
+        public string SetAccount(Account data)
+        {
+            Account acc = DataProvider.Instant.DB.Accounts.Where(x => x.IdUser == data.IdUser).SingleOrDefault();
+            acc.DateOfBirth = data.DateOfBirth;
+            acc.Name = data.Name;
+            acc.Gender = data.Gender;
+            acc.Address = data.Address;
+            acc.Phone = data.Phone;
+            acc.Role = data.Role;
+
+            return "success";
         }
 
         public Account Login(string username, string password)

@@ -33,9 +33,14 @@ namespace ClinicManager.Models.DataTransferObject
             return DataProvider.Instant.DB.HealthRecords.Where(x => x.IdHealthRecord == id).SingleOrDefault();
         }
 
-        public List<HealthRecord> getHealthRecordsByIdPatient(int id)
+        public List<HealthRecord> GetHealthRecordsByIdPatient(int id)
         {
             return DataProvider.Instant.DB.HealthRecords.Where(x => x.IdPatient == id).ToList();
+        }
+
+        public List<HealthRecord> GetHealthRecordsByIdUser(int id)
+        {
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.CreateByUser == id || x.UpdateByUser == id).ToList();
         }
 
         public int CountHealthRecordsByIdPatient(int id)
@@ -50,12 +55,14 @@ namespace ClinicManager.Models.DataTransferObject
 
         public List<HealthRecord> GetQueuesHealthRecords()
         {
-            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == false).OrderBy(x => x.IndexOfDay).Take(10).ToList();
+            DateTime d = DateTime.Now;
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == false && x.CreateAt == d).OrderBy(x => x.IndexOfDay).Take(10).ToList();
         }
 
         public List<HealthRecord> GetMissCallsHealthRecords()
         {
-            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == true).OrderBy(x => x.IndexOfDay).Take(10).ToList();
+            DateTime d = DateTime.Now;
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == true && x.CreateAt == d).OrderBy(x => x.IndexOfDay).Take(10).ToList();
         }
 
         #endregion

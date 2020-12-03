@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     account.DateOfBirth = convertCSharpDateToDateObj(account.DateOfBirth);
     renderProfileInfo();
     document.getElementById('saveButton').addEventListener('click', setPass);
@@ -85,22 +84,28 @@ function setPass() {
         dataType: "json",
         success: function (result) {
             currentAcc = result;
-            currentAcc.Password = newPass.value;
-            
-            $.ajax({
-                url: "/manager/setPass",
-                data: JSON.stringify(currentAcc),
-                type: "POST",
-                contentType: "application/json;charset=UTF-8",
-                dataType: "json",
-                success: function (result) {
-                    window.location.href('/login');
-                },
-                error: function (errormessage) {
-                    alert('Sai mật khẩu');
-                }
-            });
 
+            if (currentAcc.Password != passInput.value) {
+                alert('Thất bại');
+            } else {
+                currentAcc.Password = newPass.value;
+            
+                $.ajax({
+                    url: "/manager/setPass",
+                    data: JSON.stringify(currentAcc),
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                    },
+                    error: function (errormessage) {
+                        alert('Sai mật khẩu');
+                    },
+                    complete: function() {
+                        window.location.href('/login');
+                    }
+                });
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

@@ -99,7 +99,7 @@ namespace ClinicManager.Controllers
         public JsonResult getHealthRecordsByIdPatient(int id)
         {
             List<HealthRecordTemp> list = new List<HealthRecordTemp>();
-            List<HealthRecord> data = HealthRecordDTO.Instant.getHealthRecordsByIdPatient(id);
+            List<HealthRecord> data = HealthRecordDTO.Instant.GetHealthRecordsByIdPatient(id);
 
             foreach (HealthRecord item in data)
             {

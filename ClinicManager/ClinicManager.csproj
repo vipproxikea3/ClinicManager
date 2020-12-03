@@ -143,6 +143,7 @@
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataTransferObject\AccountDTO.cs" />
+    <Compile Include="Models\DataTransferObject\ConstantDTO.cs" />
     <Compile Include="Models\DataTransferObject\DataProvider.cs" />
     <Compile Include="Models\DataTransferObject\HealthRecordDTO.cs" />
     <Compile Include="Models\DataTransferObject\PatientDTO.cs" />
@@ -242,6 +243,9 @@
     <Content Include="Views\community\detail_patient.cshtml" />
     <Content Include="Views\login\Index.cshtml" />
     <Content Include="Views\manager\profile.cshtml" />
+    <Content Include="Views\manager\setting.cshtml" />
+    <Content Include="Views\manager\detail_user.cshtml" />
+    <Content Include="Views\manager\users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
