@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -26,6 +27,12 @@ namespace ClinicManager.Models.DataTransferObject
         public List<HealthRecord> GetHealthRecords()
         {
             return DataProvider.Instant.DB.HealthRecords.OrderByDescending(x => x.CreateAt).ToList();
+        }
+
+        public List<HealthRecord> GetHealthRecordsToDay()
+        {
+            DateTime d = DateTime.Now;
+            return DataProvider.Instant.DB.HealthRecords.Where(x => EntityFunctions.TruncateTime(x.CreateAt) == d.Date).OrderByDescending(x => x.CreateAt).ToList();
         }
 
         public HealthRecord GetHealthRecordById(int id)
@@ -56,13 +63,63 @@ namespace ClinicManager.Models.DataTransferObject
         public List<HealthRecord> GetQueuesHealthRecords()
         {
             DateTime d = DateTime.Now;
-            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == false && x.CreateAt == d).OrderBy(x => x.IndexOfDay).Take(10).ToList();
+            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == false && EntityFunctions.TruncateTime(x.CreateAt) == d.Date).OrderBy(x => x.IndexOfDay).Take(10).ToList();
         }
 
         public List<HealthRecord> GetMissCallsHealthRecords()
         {
             DateTime d = DateTime.Now;
-            return DataProvider.Instant.DB.HealthRecords.Where(x => x.Status == true && x.missCall == true && x.CreateAt == d).OrderBy(x => x.IndexOfDay).Take(10).ToList();
+            return DataProvider.Instant.DB.HealthRecords.Where(x => (x.Status == true) && (x.missCall != false) && (EntityFunctions.TruncateTime(x.CreateAt) == d.Date)).OrderBy(x => x.IndexOfDay).Take(10).ToList();
+        }
+
+        public int? GetNextIndexOfDay()
+        {
+            DateTime d = DateTime.Now;
+            int? max = DataProvider.Instant.DB.HealthRecords.Where(x => EntityFunctions.TruncateTime(x.CreateAt) == d.Date).Select(x => x.IndexOfDay).Max();
+            if (max == null)
+            {
+                return 1;
+            } else
+            {
+                return max + 1;
+            }
+        }
+
+        #endregion
+
+        #region POST
+
+        public string SetTheOrderById(int id)
+        {
+            HealthRecord healthRecord = DataProvider.Instant.DB.HealthRecords.Where(x => x.IdHealthRecord == id).SingleOrDefault();
+            healthRecord.missCall = !healthRecord.missCall;
+            DataProvider.Instant.DB.SaveChanges();
+
+            return "success";
+        }
+
+        public string createHealthRecord(HealthRecord data)
+        {
+            HealthRecord item = new HealthRecord();
+
+            DateTime d = DateTime.Now;
+
+            item.CreateAt = d;
+            item.CreateByUser = data.CreateByUser;
+            item.ExaminationFee = data.ExaminationFee;
+            item.IsReExamination = data.IsReExamination;
+            item.IdPatient = data.IdPatient;
+            item.missCall = false;
+            item.Status = true;
+            item.IndexOfDay = HealthRecordDTO.Instant.GetNextIndexOfDay();
+            item.Symptom = null;
+            item.Diagnosis = null;
+            item.UpdateByUser = null;
+
+            DataProvider.Instant.DB.HealthRecords.Add(item);
+            DataProvider.Instant.DB.SaveChanges();
+
+            return "success";
         }
 
         #endregion

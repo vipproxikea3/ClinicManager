@@ -84,6 +84,17 @@ namespace ClinicManager.Controllers
                 return Json(AccountDTO.Instant.SetStatus(id), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult reSetPass(int id)
+        {
+            if (HttpContext.Request.HttpMethod == HttpMethod.Get.Method)
+            {
+                Response.Redirect("/page_not_found");
+                return Json("Deny Get Request", JsonRequestBehavior.AllowGet);
+            }
+            else
+                return Json(AccountDTO.Instant.ReSetPassById(id), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult setAccount(Account data)
         {
             if (HttpContext.Request.HttpMethod == HttpMethod.Get.Method)
@@ -93,6 +104,17 @@ namespace ClinicManager.Controllers
             }
             else
                 return Json(AccountDTO.Instant.SetAccount(data), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult createAccount(Account data)
+        {
+            if (HttpContext.Request.HttpMethod == HttpMethod.Get.Method)
+            {
+                Response.Redirect("/page_not_found");
+                return Json("Deny Get Request", JsonRequestBehavior.AllowGet);
+            }
+            else
+                return Json(AccountDTO.Instant.createAccount(data), JsonRequestBehavior.AllowGet);
         }
 
 

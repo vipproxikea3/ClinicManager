@@ -15,7 +15,7 @@ namespace ClinicManager.Models
     public partial class HealthRecord
     {
         public int IdHealthRecord { get; set; }
-        public Nullable<System.DateTime> CreateAt { get; set; }
+        public System.DateTime CreateAt { get; set; }
         public int CreateByUser { get; set; }
         public double ExaminationFee { get; set; }
         public Nullable<bool> IsReExamination { get; set; }

@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tra cứu bệnh nhân</title>
+    <title>Hồ sơ mới</title>
 
     <!-- Custom fonts for this template -->
     <link href="~/Template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,8 +33,15 @@
     <!-- CheckLogin script -->
     <script src="~/Template/jsScript/checkLogin.js"></script>
 
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    <!-- SweetAlert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Process script -->
-    <script src="~/Template/jsScript/patients.js"></script>
+    <script src="~/Template/jsScript/new_health_record.js"></script>
 
     <style>
         #Sidebar {
@@ -53,7 +60,6 @@
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -88,7 +94,7 @@
                 </div>
 
                 <!-- Nav Item - Patients -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/community/patients">
                         <i class="fas fa-fw fa-user-injured"></i>
                         <span>Bệnh nhân</span></a>
@@ -110,7 +116,7 @@
                 </div>
 
                 <!-- Nav Item - New Health Record -->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/receptionist/new_health_record">
                         <i class="fas fa-fw fa-plus"></i>
                         <span>Tiếp nhận bệnh nhân</span></a>
@@ -177,6 +183,7 @@
             </ul>
         </div>
         <!-- End of Sidebar -->
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -187,7 +194,8 @@
                 <div id="Topbar">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                        <span class="ml-2 text-lg text-gray-600">community <i class="fas fa-caret-right"></i> patients</span>
+                        <span class="ml-2 text-lg text-gray-600">receptionist <i class="fas fa-caret-right"></i>
+                            new_health_record</span>
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -206,7 +214,8 @@
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cá nhân
                                     </a>
-                                    <a class="dropdown-item" href="/login" data-toggle="modal" data-target="#logoutModal">
+                                    <a class="dropdown-item" href="/login" data-toggle="modal"
+                                        data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Đăng xuất
                                     </a>
@@ -223,10 +232,8 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Sẵn sàng đăng xuất?</h5>
                                 </div>
-                                <div class="modal-body">
-                                    Chọn "Đăng xuất" bên dưới nếu bạn đã sẵn sàng kết thúc phiên
-                                    hiện tại của mình.
-                                </div>
+                                <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã sẵn sàng kết thúc phiên
+                                    hiện tại của mình.</div>
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
                                     <a class="btn btn-primary" href="/login">Đăng xuất</a>
@@ -236,106 +243,30 @@
                     </div>
                 </div>
                 <!-- End of Topbar -->
+
                 <!-- Begin Page Content -->
                 <div style="min-height: 600px;" class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Tra cứu bệnh nhân</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Tạo phiếu khám bệnh mới</h1>
+                        <h1 id="examinationFee" class="h5 mb-0 text-gray-800"></h1>
                     </div>
 
-                    <div class="row">
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Tất cả
-                                            </div>
-                                            <div id="totalPatients" class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div id="thisYear" class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            </div>
-                                            <div id="yearPatients" class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div id="thisMonth" class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div id="monthPatients" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div id="thisDate" class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            </div>
-                                            <div id="datePatients" class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#myModal" onclick="return clearTextBox();"><i class="fas fa-plus mr-3"></i>Tạo mới</button>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <div class="form-group mb-5">
-                                <div class="d-flex flex-wrap">
-                                    <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="radioButtonFilter"
-                                            id="filterToday" checked onclick="return renderTableToDay()">
-                                        <label class="form-check-label">
-                                            Hôm nay
-                                        </label>
-                                    </div>
-                                    <div class="form-check mr-3">
-                                        <input class="form-check-input" type="radio" name="radioButtonFilter"
-                                            id="filterAllDay" onclick="return renderTable()">
-                                        <label class="form-check-label">
-                                            Mọi ngày
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="table-responsive">
-                                <table id="patientsTable" class="table table-bordered" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Họ tên</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Giới tính</th>
-                                            <th>Số chứng minh</th>
+                                            <th>Mã số</th>
+                                            <th>Ngày khám</th>
+                                            <th>Thứ tự khám</th>
+                                            <th>Thu ngân</th>
+                                            <th>Bệnh nhân</th>
+                                            <th>Phí khám</th>
+                                            <th>Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -345,30 +276,82 @@
                         </div>
                     </div>
 
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Thông tin bệnh nhân</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label>Chứng minh thư</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="identityCardNumber" disabled="true"/>
+                                                <div class="input-group-append">
+                                                    <button id="checkPatient" onclick="return getPatientByIdentityCardNumber();" class="btn btn-dark" type="button">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Name">Tên bệnh nhân</label>
+                                            <input type="text" class="form-control" id="name" placeholder="Tên bệnh nhân" disabled="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="DateOfBirth">Ngày sinh</label>
+                                            <input type="date" class="form-control" id="dateOfBirth" disabled="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Gender">Giới tính</label>
+                                            <div class="d-flex flex-wrap">
+                                                <div class="form-check mr-3">
+                                                    <input class="form-check-input" type="radio" name="radioButtonGender" id="genderMale" value="0" checked disabled="true">
+                                                    <label class="form-check-label">
+                                                        Nam
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mr-3">
+                                                    <input class="form-check-input" type="radio" name="radioButtonGender" id="genderFemale" value="1" disabled="true">
+                                                    <label class="form-check-label">
+                                                        Nữ
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="addButton" onclick="return createHealthRecord();">Xác nhận</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
-            </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>SE100.L11 | 18521314 - 18520100 - 18521293 - 18520132</span>
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>SE100.L11 | 18521314 - 18520100 - 18521293 - 18520132</span>
+                        </div>
                     </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 </body>
 
 <!-- Bootstrap core JavaScript-->

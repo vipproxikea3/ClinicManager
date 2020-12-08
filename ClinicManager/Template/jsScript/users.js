@@ -60,8 +60,8 @@ function generateDataOfTable(input) {
         } else {
             itemTmp.push('');
         }
-
-        itemTmp.push('<button class="text-xs btn btn-success" onclick="return getUserById(' + item.IdUser + ')">Cập nhật</button>');
+        
+        itemTmp.push('<div class="btn-group" role="group"><button class="text-xs btn btn-primary" onclick="return getUserById(' + item.IdUser + ')">Cập nhật</button><button class="text-xs btn btn-primary" onclick="return reSetPass(' + item.IdUser + ')">Đặt mật khẩu</button></div>');
 
         output.push(itemTmp);
     }
@@ -84,13 +84,28 @@ function setStatus(id) {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            console.log(result)
+            toastr.success('Thành công');
         },
         error: function (errormessage) {
-            alert('Thất bại');
+            toastr.error('Thất bại');
         },
         complete: function () {
             getUsers();
+        }
+    });
+}
+
+function reSetPass(id) {
+    $.ajax({
+        url: "/manager/reSetPass/" + id,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            toastr.success('Thành công');
+        },
+        error: function (errormessage) {
+            toastr.error('Thất bại');
         }
     });
 }
@@ -132,6 +147,44 @@ function setUser() {
 
     user.Name = $('#name').val();
     user.DateOfBirth = $('#dateOfBirth').val();
+    user.Address = $('#address').val();
+    user.Phone = $('#phone').val();
+    if ($('#genderFemale').prop('checked')) {
+        user.Gender = 1;
+    } else {
+        user.Gender = 0;
+    }
+    if ($('#roleDoctor').prop('checked')) {
+        user.Role = 1;
+    } else {
+        user.Role = 2;
+    }
+
+    $.ajax({
+        url: "/manager/setAccount",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            toastr.success('Thành công');
+        },
+        error: function (errormessage) {
+            toastr.error('Thất bại');
+        },
+        complete: function () {
+            getUsers();
+            $('#myModal').modal('hide');
+        }
+    });
+
+}
+
+function createUser() {
+    let user = {};
+
+    user.Name = $('#name').val();
+    user.DateOfBirth = $('#dateOfBirth').val();
     user.IdentityCardNumber = $('#identityCardNumber').val();
     user.Address = $('#address').val();
     user.Phone = $('#phone').val();
@@ -146,26 +199,23 @@ function setUser() {
         user.Role = 2;
     }
 
-    console.log(user);
-
     $.ajax({
-        url: "/manager/setAccount",
+        url: "/manager/createAccount",
         data: JSON.stringify(user),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            console.log(result)
+            toastr.success('Thành công');
         },
         error: function (errormessage) {
-            alert('Thất bại');
+            toastr.error('Thất bại');
         },
         complete: function () {
             getUsers();
             $('#myModal').modal('hide');
         }
     });
-
 }
 
 function clearTextBox() {

@@ -16,6 +16,5 @@ namespace ClinicManager.Models
     {
         public int IdHealthRecord { get; set; }
         public Nullable<System.DateTime> ReExaminationAt { get; set; }
-        public Nullable<bool> Status { get; set; }
     }
 }

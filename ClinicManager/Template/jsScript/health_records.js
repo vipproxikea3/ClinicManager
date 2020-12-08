@@ -1,11 +1,11 @@
 let dataSet = [];
-let dataOfTable = [];
+let dataTable = [];
 let thisDate, thisMonth, thisYear;
 let totalHealthRecords, yearHealthRecords, monthHealthRecords, dateHealthRecords;
 
 $(document).ready(function () {
-    getData();
     renderThisDate();
+    getData();
 });
 
 function getThisDate() {
@@ -86,8 +86,11 @@ function getData() {
             alert(errormessage.responseText);
         },
         complete: function () {
-            dataOfTable = generateDataOfTable(dataSet);
-            renderTable();
+            if ($('#filterToday').prop('checked')) {
+                renderTableToDay();
+            } else {
+                renderTable();
+            }
             renderCountHealthRecords();
         }
     });
@@ -141,9 +144,18 @@ function generateDataOfTable(input) {
 }
 
 function renderTable() {
+    dataTable = generateDataOfTable(dataSet);
     $('#HealthRecordsTable').DataTable().destroy();
     $('#HealthRecordsTable').DataTable({
-        data: dataOfTable
+        data: dataTable
+    });
+}
+
+function renderTableToDay() {
+    dataTable = generateDataOfTable(dataSet.filter(item => item.CreateAt.d == thisDate && item.CreateAt.m == thisMonth && item.CreateAt.y == thisYear));
+    $('#HealthRecordsTable').DataTable().destroy();
+    $('#HealthRecordsTable').DataTable({
+        data: dataTable
     });
 }
 

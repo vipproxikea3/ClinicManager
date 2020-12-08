@@ -58,10 +58,10 @@ function setExaminationFee() {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
-                alert('Thành công');
+                toastr.success('Thành công');
             },
             error: function (errormessage) {
-                alert('Thất bại');
+                toastr.error('Thất bại');
             }
         });
     }

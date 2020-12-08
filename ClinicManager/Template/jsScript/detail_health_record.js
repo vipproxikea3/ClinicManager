@@ -75,7 +75,7 @@ function renderHealthRecordInfo() {
 
     $('#examinationFee').html(healthRecord.ExaminationFee);
 
-    if (healthRecord.IsExamination) {
+    if (healthRecord.IsReExamination) {
         $('#isExamination').html('<p class="p-2 badge badge-info">Tái khám</p>');
     } else {
         $('#isExamination').html('<p class="p-2 badge badge-success">Khám mới</p>');

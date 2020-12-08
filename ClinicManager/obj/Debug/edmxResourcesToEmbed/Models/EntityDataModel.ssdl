@@ -29,7 +29,7 @@
       <PropertyRef Name="IdHealthRecord" />
     </Key>
     <Property Name="IdHealthRecord" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateAt" Type="datetime" Nullable="false" />
     <Property Name="CreateByUser" Type="int" Nullable="false" />
     <Property Name="ExaminationFee" Type="float" Nullable="false" />
     <Property Name="IsReExamination" Type="bit" />
@@ -69,7 +69,6 @@
     </Key>
     <Property Name="IdHealthRecord" Type="int" Nullable="false" />
     <Property Name="ReExaminationAt" Type="datetime" />
-    <Property Name="Status" Type="bit" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

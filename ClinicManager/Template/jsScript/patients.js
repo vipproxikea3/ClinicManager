@@ -4,8 +4,8 @@ let thisDate, thisMonth, thisYear;
 let totalPatients, yearPatients, monthPatients, datePatients;
 
 $(document).ready(function () {
-    getData();
     renderThisDate();
+    getData();
 });
 
 function getThisDate() {
@@ -61,8 +61,11 @@ function getData() {
             alert(errormessage.responseText);
         },
         complete: function() {
-            dataOfTable = generateDataOfTable(dataSet);
-            renderTable();
+            if ($('#filterToday').prop('checked')) {
+                renderTableToDay();
+            } else {
+                renderTable();
+            }
             renderCountPatients();
         }
     });
@@ -94,6 +97,15 @@ function generateDataOfTable(input) {
 }
 
 function renderTable() {
+    dataOfTable = generateDataOfTable(dataSet);
+    $('#patientsTable').DataTable().destroy();
+    $('#patientsTable').DataTable({
+        data: dataOfTable
+    });
+}
+
+function renderTableToDay() {
+    dataOfTable = generateDataOfTable(dataSet.filter(item => item.CreateAt.d == thisDate && item.CreateAt.m == thisMonth && item.CreateAt.y == thisYear));
     $('#patientsTable').DataTable().destroy();
     $('#patientsTable').DataTable({
         data: dataOfTable

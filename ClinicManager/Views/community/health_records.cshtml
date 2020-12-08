@@ -317,6 +317,24 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
+                            <div class="form-group mb-5">
+                                <div class="d-flex flex-wrap">
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="radioButtonFilter"
+                                            id="filterToday" checked onclick="return renderTableToDay()">
+                                        <label class="form-check-label">
+                                            Hôm nay
+                                        </label>
+                                    </div>
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="radioButtonFilter"
+                                            id="filterAllDay" onclick="return renderTable()">
+                                        <label class="form-check-label">
+                                            Mọi ngày
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="HealthRecordsTable" width="100%" cellspacing="0">
                                     <thead>

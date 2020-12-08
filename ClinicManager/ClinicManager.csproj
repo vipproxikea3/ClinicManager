@@ -133,6 +133,7 @@
     <Compile Include="Controllers\loginController.cs" />
     <Compile Include="Controllers\managerController.cs" />
     <Compile Include="Controllers\page_not_foundController.cs" />
+    <Compile Include="Controllers\receptionistController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,6 +247,9 @@
     <Content Include="Views\manager\setting.cshtml" />
     <Content Include="Views\manager\detail_user.cshtml" />
     <Content Include="Views\manager\users.cshtml" />
+    <Content Include="Views\receptionist\set_the_order.cshtml" />
+    <Content Include="Views\receptionist\reexamination.cshtml" />
+    <Content Include="Views\receptionist\new_health_record.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

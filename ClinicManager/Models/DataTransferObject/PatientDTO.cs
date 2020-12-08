@@ -23,10 +23,13 @@ namespace ClinicManager.Models.DataTransferObject
         }
 
         #region POST
-        public void CreatePatient(Patient patientObj)
+        public int CreatePatient(Patient data)
         {
-            DataProvider.Instant.DB.Patients.Add(new Patient() { Name = patientObj.Name, DateOfBirth = patientObj.DateOfBirth, Gender = patientObj.Gender, IdentityCardNumber = patientObj.IdentityCardNumber });
+            DateTime d = DateTime.Now;
+            data.CreateAt = d;
+            DataProvider.Instant.DB.Patients.Add(data);
             DataProvider.Instant.DB.SaveChanges();
+            return DataProvider.Instant.DB.Patients.Where(x => x.IdentityCardNumber == data.IdentityCardNumber).SingleOrDefault().IdPatient;
         }
         #endregion
 

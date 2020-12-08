@@ -72,7 +72,6 @@
     <EntitySetMapping Name="ReExaminations">
       <EntityTypeMapping TypeName="ClinicManagerModel.ReExamination">
         <MappingFragment StoreEntitySet="ReExamination">
-          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ReExaminationAt" ColumnName="ReExaminationAt" />
           <ScalarProperty Name="IdHealthRecord" ColumnName="IdHealthRecord" />
         </MappingFragment>

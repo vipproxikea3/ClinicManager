@@ -32,5 +32,17 @@ namespace ClinicManager.Models.DataTransferObject
         }
 
         #endregion
+
+        #region POST
+
+        public string SetReExamination(ReExamination data) {
+            ReExamination item = DataProvider.Instant.DB.ReExaminations.Where(x => x.IdHealthRecord == data.IdHealthRecord).SingleOrDefault();
+            item.ReExaminationAt = data.ReExaminationAt;
+            DataProvider.Instant.DB.SaveChanges();
+
+            return "success";
+        }
+
+        #endregion
     }
 }

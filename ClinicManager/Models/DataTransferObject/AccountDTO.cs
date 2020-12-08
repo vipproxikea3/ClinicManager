@@ -63,14 +63,37 @@ namespace ClinicManager.Models.DataTransferObject
             acc.Gender = data.Gender;
             acc.Address = data.Address;
             acc.Phone = data.Phone;
+            if (acc.Role != 0)
+                acc.Role = data.Role;
+            DataProvider.Instant.DB.SaveChanges();
+
+            return "success";
+        }
+
+        public string createAccount(Account data)
+        {
+            Account acc = new Account();
+
+            acc.DateOfBirth = data.DateOfBirth;
+            acc.IdentityCardNumber = data.IdentityCardNumber;
+            acc.Name = data.Name;
+            acc.Gender = data.Gender;
+            acc.Address = data.Address;
+            acc.Phone = data.Phone;
             acc.Role = data.Role;
+            acc.Username = data.IdentityCardNumber;
+            acc.Password = data.IdentityCardNumber;
+            acc.isActive = true;
+
+            DataProvider.Instant.DB.Accounts.Add(acc);
+            DataProvider.Instant.DB.SaveChanges();
 
             return "success";
         }
 
         public Account Login(string username, string password)
         {
-            return DataProvider.Instant.DB.Accounts.Where(x => x.Username == username && x.Password == password).SingleOrDefault();
+            return DataProvider.Instant.DB.Accounts.Where(x => x.Username == username && x.Password == password && x.isActive == true).SingleOrDefault();
         }
 
         public string SetPass(Account data)
@@ -81,6 +104,13 @@ namespace ClinicManager.Models.DataTransferObject
             return "success";
         }
 
+        public string ReSetPassById(int id)
+        {
+            Account acc = DataProvider.Instant.DB.Accounts.Where(x => x.IdUser == id).SingleOrDefault();
+            acc.Password = acc.IdentityCardNumber;
+            DataProvider.Instant.DB.SaveChanges();
+            return "success";
+        }
         #endregion
     }
 }
