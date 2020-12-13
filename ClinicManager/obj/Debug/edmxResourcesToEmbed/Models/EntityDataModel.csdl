@@ -5,9 +5,8 @@
     <EntitySet Name="Constants" EntityType="ClinicManagerModel.Constant" />
     <EntitySet Name="HealthRecords" EntityType="ClinicManagerModel.HealthRecord" />
     <EntitySet Name="Patients" EntityType="ClinicManagerModel.Patient" />
-    <EntitySet Name="Precriptions" EntityType="ClinicManagerModel.Precription" />
+    <EntitySet Name="Prescriptions" EntityType="ClinicManagerModel.Prescription" />
     <EntitySet Name="ReExaminations" EntityType="ClinicManagerModel.ReExamination" />
-    <EntitySet Name="sysdiagrams" EntityType="ClinicManagerModel.sysdiagram" />
   </EntityContainer>
   <EntityType Name="Account">
     <Key>
@@ -61,7 +60,7 @@
     <Property Name="IdentityCardNumber" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="CreateAt" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="Precription">
+  <EntityType Name="Prescription">
     <Key>
       <PropertyRef Name="IdPrecription" />
     </Key>
@@ -78,15 +77,6 @@
     </Key>
     <Property Name="IdHealthRecord" Type="Int32" Nullable="false" />
     <Property Name="ReExaminationAt" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Status" Type="Boolean" />
   </EntityType>
 </Schema>

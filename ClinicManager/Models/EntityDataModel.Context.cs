@@ -29,8 +29,7 @@ namespace ClinicManager.Models
         public virtual DbSet<Constant> Constants { get; set; }
         public virtual DbSet<HealthRecord> HealthRecords { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
-        public virtual DbSet<Precription> Precriptions { get; set; }
+        public virtual DbSet<Prescription> Prescriptions { get; set; }
         public virtual DbSet<ReExamination> ReExaminations { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

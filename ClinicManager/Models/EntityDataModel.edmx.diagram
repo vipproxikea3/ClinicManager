@@ -9,9 +9,8 @@
         <EntityTypeShape EntityType="ClinicManagerModel.Constant" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="ClinicManagerModel.HealthRecord" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="ClinicManagerModel.Patient" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ClinicManagerModel.Precription" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ClinicManagerModel.Prescription" Width="1.5" PointX="4.75" PointY="3.75" />
         <EntityTypeShape EntityType="ClinicManagerModel.ReExamination" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ClinicManagerModel.sysdiagram" Width="1.5" PointX="6.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

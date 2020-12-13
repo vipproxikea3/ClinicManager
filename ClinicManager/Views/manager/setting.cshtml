@@ -34,6 +34,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
+    <!-- SweetAlert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Process script -->
     <script src="~/Template/jsScript/setting.js"></script>
     
@@ -102,78 +105,14 @@
                         <span>Hồ sơ khám bệnh</span></a>
                 </li>
 
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    TIẾP ĐÓN
+                <div id="sidebarReceptionist">
                 </div>
 
-                <!-- Nav Item - New Health Record -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/receptionist/new_health_record">
-                        <i class="fas fa-fw fa-plus"></i>
-                        <span>Tiếp nhận bệnh nhân</span></a>
-                </li>
-
-                <!-- Nav Item - ReExamination -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/receptionist/reexamination">
-                        <i class="far fa-fw fa-calendar-check"></i>
-                        <span>Tái khám</span></a>
-                </li>
-
-                <!-- Nav Item - Set the order -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/receptionist/set_the_order">
-                        <i class="fas fa-fw fa-list-ol"></i>
-                        <span>Cập nhật thứ tự</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    BÁC SĨ
+                <div id="sidebarDoctor">
                 </div>
 
-                <!-- Nav Item - Examination -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/doctor">
-                        <i class="fas fa-fw fa-stethoscope"></i>
-                        <span>Khám bệnh</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    QUẢN LÝ
+                <div id="sidebarManager">
                 </div>
-
-                <!-- Nav Item - Statistical -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/manager/statistical">
-                        <i class="fas fa-fw fa-chart-line"></i>
-                        <span>Thống kê</span></a>
-                </li>
-
-                <!-- Nav Item - Users -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/manager/users">
-                        <i class="fas fa-fw fa-user"></i>
-                        <span>Nhân viên</span></a>
-                </li>
-
-                <!-- Nav Item - Setting -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="/manager/setting">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>Cài đặt</span></a>
-                </li>
 
             </ul>
         </div>
@@ -252,7 +191,7 @@
                                 <div class="col-md-2 d-flex flex-column justify-content-center"><label
                                         class="font-weight-bold text-gray-900">Phí khám bệnh</label></div>
                                 <div class="col">
-                                    <input id="examinationFee" type="text" class="form-control" placeholder="Phí khám bệnh">
+                                    <input id="examinationFee" type="number" min="0" step="1" class="form-control" placeholder="Phí khám bệnh">
                                 </div>
                                 <div class="col-md-2 d-flex justify-content-center">
                                     <button id="updateButton" type="button" class="btn btn-danger px-2">Chỉnh sửa</button>

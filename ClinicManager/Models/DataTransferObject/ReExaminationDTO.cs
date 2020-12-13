@@ -43,6 +43,17 @@ namespace ClinicManager.Models.DataTransferObject
             return "success";
         }
 
+        public string CreateReExamination(ReExamination data)
+        {
+            ReExamination item = new ReExamination();
+            item.IdHealthRecord = data.IdHealthRecord;
+            item.ReExaminationAt = data.ReExaminationAt;
+            DataProvider.Instant.DB.ReExaminations.Add(item);
+            DataProvider.Instant.DB.SaveChanges();
+
+            return "success";
+        }
+
         #endregion
     }
 }

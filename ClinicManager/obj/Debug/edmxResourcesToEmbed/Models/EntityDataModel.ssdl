@@ -52,7 +52,7 @@
     <Property Name="IdentityCardNumber" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="CreateAt" Type="datetime" />
   </EntityType>
-  <EntityType Name="Precription">
+  <EntityType Name="Prescription">
     <Key>
       <PropertyRef Name="IdPrecription" />
     </Key>
@@ -69,24 +69,14 @@
     </Key>
     <Property Name="IdHealthRecord" Type="int" Nullable="false" />
     <Property Name="ReExaminationAt" Type="datetime" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
+    <Property Name="Status" Type="bit" />
   </EntityType>
   <EntityContainer Name="ClinicManagerModelStoreContainer">
     <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Constant" EntityType="Self.Constant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HealthRecord" EntityType="Self.HealthRecord" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Precription" EntityType="Self.Precription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prescription" EntityType="Self.Prescription" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReExamination" EntityType="Self.ReExamination" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

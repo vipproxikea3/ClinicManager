@@ -155,9 +155,9 @@ namespace ClinicManager.Controllers
             }
         }
 
-        public JsonResult GetPrecriptionByIdHealthRecord(int id)
+        public JsonResult GetPrescriptionByIdHealthRecord(int id)
         {
-            return Json(PrecriptionDTO.Instant.GetPrecriptionByIdHealthRecord(id), JsonRequestBehavior.AllowGet);
+            return Json(PrescriptionDTO.Instant.GetPrescriptionByIdHealthRecord(id), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult getPatientById(int id)

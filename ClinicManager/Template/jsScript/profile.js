@@ -73,44 +73,47 @@ function checkPassForm() {
 }
 
 function setPass() {
-    if (!/^([a-zA-Z0-9]{6,})$/.test(newPass.value) || reEnterNewPass.value != newPass.value) return;
+    if (!/^([a-zA-Z0-9]{6,})$/.test(newPass.value)) {
+        toastr.warning('Mật khẩu mới cần ít nhất 6 ký tự bao gồm chữ và số');
+    } else if (reEnterNewPass.value != newPass.value) {
+        toastr.warning('Nhập lại mật khẩu chưa chính xác');
+    } else {
+        let currentAcc = {};
 
-    let currentAcc = {};
+        $.ajax({
+            url: "/manager/getAccountById/" + account.IdUser,
+            type: "GET",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                currentAcc = result;
 
-    $.ajax({
-        url: "/manager/getAccountById/" + account.IdUser,
-        type: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            currentAcc = result;
+                if (currentAcc.Password != passInput.value) {
+                    toastr.warning('Mật khẩu hiện tại chưa chính xác, vui lòng kiểm tra lại');
+                } else {
+                    currentAcc.Password = newPass.value;
 
-            if (currentAcc.Password != passInput.value) {
-                alert('Thất bại');
-            } else {
-                currentAcc.Password = newPass.value;
-            
-                $.ajax({
-                    url: "/manager/setPass",
-                    data: JSON.stringify(currentAcc),
-                    type: "POST",
-                    contentType: "application/json;charset=UTF-8",
-                    dataType: "json",
-                    success: function (result) {
-                    },
-                    error: function (errormessage) {
-                        alert('Sai mật khẩu');
-                    },
-                    complete: function() {
-                        window.location.href('/login');
-                    }
-                });
+                    $.ajax({
+                        url: "/manager/setPass",
+                        data: JSON.stringify(currentAcc),
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        success: function (result) {
+                            toastr.success('Đổi mật khẩu thành công');
+                            window.location.href = '/login';
+                        },
+                        error: function (errormessage) {
+                            alert(errormessage.responseText);
+                        }
+                    });
+                }
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
             }
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
+        });
+    }
 }
 
 function convertCSharpDateToDateObj(tmp) {

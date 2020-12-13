@@ -35,7 +35,7 @@
 
     <!-- Process script -->
     <script src="~/Template/jsScript/home.js"></script>
-    
+
 
     <style>
         #Sidebar {
@@ -101,78 +101,14 @@
                         <span>Hồ sơ khám bệnh</span></a>
                 </li>
 
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    TIẾP ĐÓN
+                <div id="sidebarReceptionist">
                 </div>
 
-                <!-- Nav Item - New Health Record -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/receptionist/new_health_record">
-                        <i class="fas fa-fw fa-plus"></i>
-                        <span>Tiếp nhận bệnh nhân</span></a>
-                </li>
-
-                <!-- Nav Item - ReExamination -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/receptionist/reexamination">
-                        <i class="far fa-fw fa-calendar-check"></i>
-                        <span>Tái khám</span></a>
-                </li>
-
-                <!-- Nav Item - Set the order -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/receptionist/set_the_order">
-                        <i class="fas fa-fw fa-list-ol"></i>
-                        <span>Cập nhật thứ tự</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    BÁC SĨ
+                <div id="sidebarDoctor">
                 </div>
 
-                <!-- Nav Item - Examination -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/doctor">
-                        <i class="fas fa-fw fa-stethoscope"></i>
-                        <span>Khám bệnh</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    QUẢN LÝ
+                <div id="sidebarManager">
                 </div>
-
-                <!-- Nav Item - Statistical -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/manager/statistical">
-                        <i class="fas fa-fw fa-chart-line"></i>
-                        <span>Thống kê</span></a>
-                </li>
-
-                <!-- Nav Item - Users -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/manager/users">
-                        <i class="fas fa-fw fa-user"></i>
-                        <span>Nhân viên</span></a>
-                </li>
-
-                <!-- Nav Item - Setting -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/manager/setting">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>Cài đặt</span></a>
-                </li>
 
             </ul>
         </div>
@@ -207,7 +143,8 @@
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cá nhân
                                     </a>
-                                    <a class="dropdown-item" href="/login" data-toggle="modal" data-target="#logoutModal">
+                                    <a class="dropdown-item" href="/login" data-toggle="modal"
+                                        data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Đăng xuất
                                     </a>
@@ -246,7 +183,8 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="queueTable" class="table table-bordered" width="100%" cellspacing="0">
+                                        <table id="queueTable" class="table table-bordered" width="100%"
+                                            cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
@@ -267,7 +205,8 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="missCallTable" class="table table-bordered" width="100%" cellspacing="0">
+                                        <table id="missCallTable" class="table table-bordered" width="100%"
+                                            cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
@@ -281,30 +220,30 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>SE100.L11 | 18521314 - 18520100 - 18521293 - 18520132</span>
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>SE100.L11 | 18521314 - 18520100 - 18521293 - 18520132</span>
+                        </div>
                     </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 </body>
 
 <!-- Bootstrap core JavaScript-->

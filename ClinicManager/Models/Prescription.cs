@@ -12,12 +12,13 @@ namespace ClinicManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Prescription
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int IdPrecription { get; set; }
+        public int IdHealthRecord { get; set; }
+        public string MedicineName { get; set; }
+        public string Unit { get; set; }
+        public Nullable<int> Count { get; set; }
+        public string UserManual { get; set; }
     }
 }

@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\communityController.cs" />
+    <Compile Include="Controllers\doctorController.cs" />
     <Compile Include="Controllers\homeController.cs" />
     <Compile Include="Controllers\loginController.cs" />
     <Compile Include="Controllers\managerController.cs" />
@@ -148,7 +149,7 @@
     <Compile Include="Models\DataTransferObject\DataProvider.cs" />
     <Compile Include="Models\DataTransferObject\HealthRecordDTO.cs" />
     <Compile Include="Models\DataTransferObject\PatientDTO.cs" />
-    <Compile Include="Models\DataTransferObject\PrecriptionDTO.cs" />
+    <Compile Include="Models\DataTransferObject\PrescriptionDTO.cs" />
     <Compile Include="Models\DataTransferObject\ReExaminationDTO.cs" />
     <Compile Include="Models\EntityDataModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -171,13 +172,10 @@
     <Compile Include="Models\Patient.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Precription.cs">
+    <Compile Include="Models\Prescription.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReExamination.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -250,6 +248,7 @@
     <Content Include="Views\receptionist\set_the_order.cshtml" />
     <Content Include="Views\receptionist\reexamination.cshtml" />
     <Content Include="Views\receptionist\new_health_record.cshtml" />
+    <Content Include="Views\doctor\examination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

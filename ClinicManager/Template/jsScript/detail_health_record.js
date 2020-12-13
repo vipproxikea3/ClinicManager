@@ -1,12 +1,15 @@
 let idHealthRecord;
 let currentUrl;
 let healthRecord = {};
-let precription = [];
+let prescription = [];
 let dataOfTable = [];
 
-getCurrentUrl();
-getIdHealthRecord();
-getHealthRecordByID(idHealthRecord);
+$(document).ready(function () {
+    renderSidebar();
+    getCurrentUrl();
+    getIdHealthRecord();
+    getHealthRecordByID(idHealthRecord);
+});
 
 function getHealthRecordByID(id) {
     $.ajax({
@@ -23,27 +26,27 @@ function getHealthRecordByID(id) {
         error: function (errormessage) {
             window.location.href = '/page_not_found';
         },
-        complete: function() {
+        complete: function () {
             renderHealthRecordInfo();
-            getPrecription(idHealthRecord);
+            getPrescription(idHealthRecord);
         }
     });
 }
 
-function getPrecription(id) {
+function getPrescription(id) {
     $.ajax({
-        url: "/community/GetPrecriptionByIdHealthRecord/" + id,
+        url: "/community/GetPrescriptionByIdHealthRecord/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            precription = result;
+            prescription = result;
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         },
-        complete: function() {
-            renderPrecription();
+        complete: function () {
+            renderPrescription();
         }
     });
 }
@@ -51,13 +54,13 @@ function getPrecription(id) {
 function getCurrentUrl() {
     currentUrl = (window.location.href).trim();
     if (currentUrl[currentUrl.length - 1] == '/') {
-        currentUrl = currentUrl.slice(0,-1);
+        currentUrl = currentUrl.slice(0, -1);
     }
 }
 
 function getIdHealthRecord() {
     let res = currentUrl.split('/');
-    let tmp = parseInt(res[res.length -1]);
+    let tmp = parseInt(res[res.length - 1]);
     if (!Number.isInteger(tmp)) {
         window.location.href = '/page_not_found';
     } else {
@@ -131,8 +134,8 @@ function generateDataOfTable(input) {
     return output;
 }
 
-function renderPrecription() {
-    dataOfTable = generateDataOfTable(precription);
+function renderPrescription() {
+    dataOfTable = generateDataOfTable(prescription);
     $('#dataTable').DataTable().destroy();
     $('#dataTable').DataTable({
         data: dataOfTable
@@ -149,4 +152,91 @@ function convertCSharpDateToDateObj(tmp) {
         y: date.getFullYear()
     }
     return dateObj;
+}
+
+function renderSidebar() {
+    let content = ``;
+
+    if (account.Role == 0) {
+        content = `
+        <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        QUẢN LÝ
+                    </div>
+
+                    <!-- Nav Item - Statistical -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/statistical">
+                            <i class="fas fa-fw fa-chart-line"></i>
+                            <span>Thống kê</span></a>
+                    </li>
+
+                    <!-- Nav Item - Users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/users">
+                            <i class="fas fa-fw fa-user"></i>
+                            <span>Nhân viên</span></a>
+                    </li>
+
+                    <!-- Nav Item - Setting -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager/setting">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>Cài đặt</span></a>
+                    </li>
+        `
+    } else if (account.Role == 1) {
+        content = `
+        <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        BÁC SĨ
+                    </div>
+
+                    <!-- Nav Item - Examination -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/doctor">
+                            <i class="fas fa-fw fa-stethoscope"></i>
+                            <span>Khám bệnh</span></a>
+                    </li>
+        `
+    } else {
+        content = `
+        <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        TIẾP ĐÓN
+                    </div>
+
+                    <!-- Nav Item - New Health Record -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/receptionist/new_health_record">
+                            <i class="fas fa-fw fa-plus"></i>
+                            <span>Tiếp nhận bệnh nhân</span></a>
+                    </li>
+
+                    <!-- Nav Item - ReExamination -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/receptionist/reexamination">
+                            <i class="far fa-fw fa-calendar-check"></i>
+                            <span>Tái khám</span></a>
+                    </li>
+
+                    <!-- Nav Item - Set the order -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/receptionist/set_the_order">
+                            <i class="fas fa-fw fa-list-ol"></i>
+                            <span>Cập nhật thứ tự</span></a>
+                    </li>
+        `
+    }
+
+    $('#sidebarReceptionist').html(content);
 }

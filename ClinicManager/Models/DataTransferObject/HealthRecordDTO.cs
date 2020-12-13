@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
@@ -117,6 +117,20 @@ namespace ClinicManager.Models.DataTransferObject
             item.UpdateByUser = null;
 
             DataProvider.Instant.DB.HealthRecords.Add(item);
+            DataProvider.Instant.DB.SaveChanges();
+
+            return "success";
+        }
+
+        public string SetHealthRecord(HealthRecord data)
+        {
+            HealthRecord item = HealthRecordDTO.Instant.GetHealthRecordById(data.IdHealthRecord);
+
+            item.Symptom = data.Symptom;
+            item.Diagnosis = data.Diagnosis;
+            item.UpdateByUser = data.UpdateByUser;
+            item.Status = false;
+
             DataProvider.Instant.DB.SaveChanges();
 
             return "success";
