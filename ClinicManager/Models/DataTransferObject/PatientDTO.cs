@@ -39,6 +39,11 @@ namespace ClinicManager.Models.DataTransferObject
             return DataProvider.Instant.DB.Patients.OrderByDescending(x => x.CreateAt).ToList();
         }
 
+        public int GetCountPatients()
+        {
+            return DataProvider.Instant.DB.Patients.Count();
+        }
+
         public Patient GetPatientById(int id)
         {
             return DataProvider.Instant.DB.Patients.Where(x => x.IdPatient == id).FirstOrDefault();

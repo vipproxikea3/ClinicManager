@@ -52,6 +52,11 @@ namespace ClinicManager.Controllers
             return View();
         }
 
+        public ActionResult statistical()
+        {
+            return View();
+        }
+
         // METHOD
         public JsonResult setPass(Account acc)
         {
@@ -117,7 +122,6 @@ namespace ClinicManager.Controllers
                 return Json(AccountDTO.Instant.createAccount(data), JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult getExaminationFee()
         {
             return Json(ConstantDTO.Instant.GetExaminationFee(), JsonRequestBehavior.AllowGet);
@@ -160,6 +164,11 @@ namespace ClinicManager.Controllers
             }
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getCountPatients()
+        {
+            return Json(PatientDTO.Instant.GetCountPatients(), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -249,6 +249,7 @@
     <Content Include="Views\receptionist\reexamination.cshtml" />
     <Content Include="Views\receptionist\new_health_record.cshtml" />
     <Content Include="Views\doctor\examination.cshtml" />
+    <Content Include="Views\manager\statical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
